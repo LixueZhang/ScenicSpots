@@ -1,0 +1,22 @@
+/*body{
+    background: #e0eafc; 
+    background: -webkit-linear-gradient(to right, #e0eafc, #cfdef3); 
+    background: linear-gradient(to right, #e0eafc, #cfdef3);
+}*/
+
+.thumbnail img{
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.img-desc{
+    padding:10px;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}

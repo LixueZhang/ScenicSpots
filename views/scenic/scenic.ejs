@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <header class="jumbotron">
+        <h2>Welcome to Scenic Spots!</h2>
+        <p>There are so many beautiful places in the world. Try to share your lovely places with us.</p>
+        <a class="btn btn-primary btn-lg" href="/scenic/new">New ScenicSpot</a>
+    </header>
+    <div>
+        <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+            <% scenicspots.forEach(function(scenicspot){ %>
+                <div class="col col-md-3 col-sm-6">
+                    <div class="thumbnail">
+                        <img src="<%= scenicspot.url %>">
+                        <h4><a href="/scenic/<%=scenicspot._id%>"><%= scenicspot.name %></a></h4>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>

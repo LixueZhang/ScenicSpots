@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+<div class="container" style="text-align: center">
+    <h1>Create a new comment on <%= scenicspot.name %></h1>
+    <div style="width:30%; margin: 30px auto">
+        <form action="/scenic/<%= scenicspot._id %>/comments" method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control" name="comment[text]"  placeholder="text">
+            </div>
+            <div class="form-group">
+                <button class="form-control btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <a href="/scenic/<%= scenicspot._id %>">Go Back</a>
+    </div>
+</div>
+
+<% include ../partials/footer %>

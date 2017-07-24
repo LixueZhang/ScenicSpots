@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+<div class="container" style="text-align: center">
+    <h1>Update The Comment</h1>
+    <div style="width:30%; margin: 30px auto">
+        <form action="/scenic/<%= spot_id %>/comments/<%= comment._id %>?_method=put" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="text"  value="<%= comment.text %>">
+            </div>
+            <div class="form-group">
+                <button class="form-control btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <a href="/scenic/<%= spot_id %>">Go Back</a>
+    </div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,82 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Scenic Spots</p>
+            <ul class="list-group">
+              <li class="list-group-item active">Basic Info</li>
+              <li class="list-group-item">More Pictures</li>
+              <li class="list-group-item">Weather</li>
+            </ul>
+            <div id="map"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= scenicspot.url %>">
+                <div class="img-desc">
+                    <h5 class="pull-right">Score: <%= scenicspot.rate %></h5>
+                    <h5><%= scenicspot.name %></h5>
+                    <p><%= scenicspot.desc %></p>
+                    <p>
+                        <strong><em>created by: <%= scenicspot.author.name %></em></strong>
+                    </p>
+                    <% if(theUser!=null && scenicspot.author.id.equals(theUser.id)) {%>
+                        <a class="btn btn-xs btn-warning" href="/scenic/<%= scenicspot._id%>/edit">Edit</a>
+                        <form action="/scenic/<%= scenicspot._id %>?_method=DELETE" method="post" style="display: inline">
+                            <button class="btn btn-xs btn-danger">Del</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/scenic/<%=scenicspot._id%>/comments/new">Leave a comment</a>
+                </div>
+                <hr>
+                <% scenicspot.comments.forEach(function(comment){ %>
+                <div class="row img-desc">
+                    <p class="pull-right">10 days ago</p>
+                    <p class="text-left"><strong><%= comment.author.name %></strong></p>
+                    <p><%= comment.text%></p>
+                    <% if(theUser!=null && comment.author.id.equals(theUser.id)) { %>
+                        <a class="btn btn-xs btn-warning" href="/scenic/<%= scenicspot._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                        <form action="/scenic/<%= scenicspot._id %>/comments/<%= comment._id %>?_method=delete" method="post" style="display: inline">
+                            <button class="btn btn-xs btn-danger">Del</button>
+                        </form>
+                    <% } %>
+                </div>
+            <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  function initMap() {
+    var lat = <%= scenicspot.lat %>;
+    var lng = <%= scenicspot.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <%= scenicspot.location %></strong>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr07-GYqKvIhHfG2pLXW0VCk3mXkOrtOA&callback=initMap"></script>
+
+<% include ../partials/footer %>
